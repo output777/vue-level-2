@@ -1,5 +1,5 @@
 <template>
-  <div class="inputBox shadow">
+<div class="inputBox shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <!-- <button v-on:click="addTodo">add</button> -->
     <span class="addContainer" v-on:click="addTodo">
@@ -17,8 +17,14 @@ export default {
   },
   methods: {
     addTodo: function () {
-      localStorage.setItem(this.newTodoItem, this.newTodoItem);
-      this.clearInput();
+      if(this.newTodoItem !== '') {
+        const obj = {
+          completed: false,
+          item: this.newTodoItem
+        };
+        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.clearInput();
+      }
     },
     clearInput: function () {
       this.newTodoItem = "";
